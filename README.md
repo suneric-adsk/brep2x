@@ -7,8 +7,8 @@ Exploration based on [Brep2Seq](https://github.com/zhangshuming0668/Brep2Seq.git
 ### Environment setup
 
 ```
-https://github.com/suneric-adsk/Brep2X.git
-cd Brep2X
+https://github.com/suneric-adsk/brep2x.git
+cd brep2x
 conda env create -f environment.yml
 conda activate brep2x
 ```
