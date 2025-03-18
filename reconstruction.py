@@ -58,7 +58,6 @@ results_path = pathlib.Path(__file__).parent.joinpath("results").joinpath(args.n
 if not results_path.exists():
     results_path.mkdir(parents=True, exist_ok=True)
 
-
 month_day = time.strftime("%m%d")
 hour_min_second = time.strftime("%H%M%S")
 checkpoint_callback = ModelCheckpoint(
@@ -90,10 +89,11 @@ if args.traintest == "train":
     val_loader = val_data.get_dataloader(batch_size=args.bs, num_workers=args.wk)    
     trainer.fit(model, train_loader, val_loader)
 else:
-    assert args.checkpoint is not None, "No checkpoint provided"
-    model = Brep2Seq.load_from_checkpoint(args.checkpoint)
-    test_data = CadDataset(root_dir=args.ds, split="test")
+    assert args.ckpt is not None, "No checkpoint provided"
+    model = Brep2Seq.load_from_checkpoint(args.ckpt)
     if args.format == "STEP":
         test_data = STEPDataSet(root_dir=args.ds)
+    else:
+        test_data = CadDataset(root_dir=args.ds, split="test")
     test_loader = test_data.get_dataloader(batch_size=args.bs, shuffle=False, num_workers=args.wk, drop_last=False)
     trainer.test(model, dataloaders=[test_loader], ckpt_path=args.ckpt, verbose=False)

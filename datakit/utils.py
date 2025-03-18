@@ -525,6 +525,6 @@ def d2_a3_distance(face0, face1, diag_len, size, num_sample=16):
         dir1 = np.cross(pts1[idx[1,1]]-pts1[idx[1,0]], pts1[idx[1,2]]-pts1[idx[1,0]])
         ang = np.arccos(np.dot(dir0, dir1)/(np.linalg.norm(dir0)*np.linalg.norm(dir1)+1e-6))
         angles.append(ang)
-    dist_values, _ = np.histogram(dists, bins=size)
-    angle_values, _ = np.histogram(angles, bins=size)
+    dist_values, _ = np.histogram(dists, bins=np.linspace(0,1,size+1))
+    angle_values, _ = np.histogram(angles, bins=np.linspace(0,np.pi,size+1))
     return softmax(dist_values), softmax(angle_values)
